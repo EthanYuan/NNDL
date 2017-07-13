@@ -35,7 +35,7 @@ import theano.tensor as T
 from theano.tensor.nnet import conv
 from theano.tensor.nnet import softmax
 from theano.tensor import shared_randomstreams
-from theano.tensor.signal import downsample
+from theano.tensor.signal import pool
 from theano.tensor.nnet import sigmoid
 # from theano.tensor import tanh
 
@@ -50,7 +50,7 @@ def ReLU(z):
 
 
 # Constants
-GPU = True
+GPU = False
 if GPU:
     print("Trying to run under a GPU.  If this is not desired, then modify "
           "network3.py\nto set the GPU flag to False.")
@@ -65,7 +65,7 @@ else:
 
 
 # Load the MNIST data
-def load_data_shared(filename="../data/mnist.pkl.gz"):
+def load_data_shared(filename="data/mnist.pkl.gz"):
     f = gzip.open(filename, 'rb')
     training_data, validation_data, test_data = cPickle.load(f)
     f.close()
@@ -244,7 +244,7 @@ class ConvPoolLayer(object):
         conv_out = conv.conv2d(
             input=self.inpt, filters=self.w, filter_shape=self.filter_shape,
             image_shape=self.image_shape)
-        pooled_out = downsample.max_pool_2d(
+        pooled_out = pool.pool_2d(
             input=conv_out, ds=self.poolsize, ignore_border=True)
         self.output = self.activation_fn(
             pooled_out + self.b.dimshuffle('x', 0, 'x', 'x'))
