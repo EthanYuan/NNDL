@@ -41,7 +41,8 @@ class Network(object):
             a = sigmoid(np.dot(w, a) + b)
         return a
 
-    def SGD(self, training_data, epochs, mini_batch_size, eta, test_data=None):
+    def SGD(self, training_data, epochs, mini_batch_size, eta,
+            test_data=None):
 
         """Train the neural network using mini-batch stochastic
         gradient descent. The ``training_data`` is a list of tuples
@@ -68,7 +69,6 @@ class Network(object):
                 print("Epoch {0} complete".format(j))
 
     def update_mini_batch(self, mini_batch, eta):
-
         """Update the network's weights and biases by applying
         gradient descent using backpropagation to a single mini batch.
         The ``mini_batch`` is a list of tuples ``(x, y)``, and ``eta``
@@ -85,7 +85,6 @@ class Network(object):
             self.biases, nabla_b)]
 
     def backprop(self, x, y):
-
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
         gradient for the cost function C_x. ``nabla_b`` and
         ``nabla_w`` are layer-by-layer lists of numpy arrays, similar
@@ -121,7 +120,6 @@ class Network(object):
         return (nabla_b, nabla_w)
 
     def evaluate(self, test_data):
-
         """Return the number of test inputs for which the neural
         network outputs the correct result. Note that the neural
         network's output is assumed to be the index of whichever
@@ -132,7 +130,6 @@ class Network(object):
         return sum(int(x == y) for (x, y) in test_results)
 
     def cost_derivative(self, output_activations, y):
-
         """Return the vector of partial derivatives \partial C_x /
         \partial a for the output activations."""
         return (output_activations - y)
@@ -140,13 +137,10 @@ class Network(object):
 
 # Miscellaneous functions
 def sigmoid(z):
-
     """The sigmoid function."""
     return 1.0 / (1.0 + np.exp(-z))
 
 
 def sigmoid_prime(z):
-
     """Derivative of the sigmoid function."""
     return sigmoid(z) * (1 - sigmoid(z))
-    
