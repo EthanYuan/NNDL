@@ -1,2 +1,2 @@
-data/*.*
+data/mnist_expanded.pkl.gz
 *.pyc
